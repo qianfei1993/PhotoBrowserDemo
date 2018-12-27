@@ -280,12 +280,12 @@
 			isa = PBXGroup;
 			children = (
 				B3201A7C21BFB2710035E846 /* PhotoBrowserViewController.h */,
-				B3201A7D21BFB2710035E846 /* UIView+Frame.m */,
-				B3201A7E21BFB2710035E846 /* PhotoBrowserCell.h */,
-				B3201A7F21BFB2710035E846 /* PhotoBrowserWaitingView.h */,
 				B3201A8021BFB2710035E846 /* PhotoBrowserViewController.m */,
 				B3201A8121BFB2710035E846 /* UIView+Frame.h */,
+				B3201A7D21BFB2710035E846 /* UIView+Frame.m */,
+				B3201A7F21BFB2710035E846 /* PhotoBrowserWaitingView.h */,
 				B3201A8221BFB2710035E846 /* PhotoBrowserWaitingView.m */,
+				B3201A7E21BFB2710035E846 /* PhotoBrowserCell.h */,
 				B3201A8321BFB2710035E846 /* PhotoBrowserCell.m */,
 			);
 			path = PhotoBrowser;

@@ -21,8 +21,8 @@ static CGFloat const kSpacing = 8.0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self setupViews];
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
 }
 
 - (void)setupViews {
@@ -35,6 +35,12 @@ static CGFloat const kSpacing = 8.0;
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.indexLabel];
     self.indexLabel.text = [NSString stringWithFormat:@"1/%lu",(unsigned long)_imgArr.count];
+}
+- (void)setCurrentIndex:(NSInteger)currentIndex{
+    _currentIndex = currentIndex;
+    if (currentIndex > self.imgArr.count) {
+        return;
+    }
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -66,6 +72,7 @@ static CGFloat const kSpacing = 8.0;
     }
     return _flowLayout;
 }
+
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(-kSpacing, 0, SCREEN_WIDTH + 2 * kSpacing, SCREEN_HEIGHT) collectionViewLayout:self.flowLayout];
@@ -77,6 +84,7 @@ static CGFloat const kSpacing = 8.0;
     }
     return _collectionView;
 }
+
 -(UILabel*)indexLabel{
     
     if (!_indexLabel) {

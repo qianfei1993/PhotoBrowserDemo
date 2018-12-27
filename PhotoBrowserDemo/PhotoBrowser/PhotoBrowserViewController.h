@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface PhotoBrowserViewController : UIViewController
-@property (nonatomic, assign) NSInteger currentIndex;
-/**
- 当前展示在中间的cell下标
- */
-@property (nonatomic, strong) NSIndexPath *currentIndexPath;
 
+// 当前展示在中间的cell下标
+@property (nonatomic, assign) NSInteger currentIndex;
+
+// 图片数组
 @property (nonatomic, strong) NSArray *imgArr;
+
 @end

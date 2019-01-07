@@ -8,13 +8,12 @@
 
 #import "PhotoBrowserCell.h"
 #import "UIView+Frame.h"
-#import "FLAnimatedImageView+WebCache.h"
 #import "PhotoBrowserWaitingView.h"
+#import "FLAnimatedImageView+WebCache.h"
 #define SCREEN_WIDTH        [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT       [UIScreen mainScreen].bounds.size.height
 #define kStrongSelf(type)  __strong typeof(type) type = weak##type
 @interface PhotoBrowserCell()<UIScrollViewDelegate,UIGestureRecognizerDelegate>
-
 @property (nonatomic,strong) FLAnimatedImageView *imageView;
 @property (nonatomic, strong) UIButton *reloadButton;
 @property (nonatomic,strong) PhotoBrowserWaitingView *waitingView;

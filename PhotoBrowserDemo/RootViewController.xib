@@ -21,8 +21,8 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8tx-z5-jGn">
-                    <rect key="frame" x="164.5" y="100" width="46" height="30"/>
-                    <state key="normal" title="Button"/>
+                    <rect key="frame" x="133.5" y="100" width="108" height="30"/>
+                    <state key="normal" title="打开图片浏览器"/>
                     <connections>
                         <action selector="buttonAction:" destination="-1" eventType="touchUpInside" id="FMv-kk-2gJ"/>
                     </connections>

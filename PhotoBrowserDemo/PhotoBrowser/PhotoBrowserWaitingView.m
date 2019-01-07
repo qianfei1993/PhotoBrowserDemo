@@ -10,8 +10,8 @@
 @implementation PhotoBrowserWaitingView
 
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame{
+    
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
@@ -21,8 +21,8 @@
     return self;
 }
 
-- (void)setProgress:(CGFloat)progress
-{
+- (void)setProgress:(CGFloat)progress{
+    
     _progress = progress;
     [self setNeedsDisplay];
     if (progress >= 1) {
@@ -30,8 +30,8 @@
     }
 }
 
-- (void)setFrame:(CGRect)frame
-{
+- (void)setFrame:(CGRect)frame{
+    
     //设置背景图为圆
     frame.size.width = 50;
     frame.size.height = 50;
@@ -39,8 +39,8 @@
     [super setFrame:frame];
 }
 
-- (void)drawRect:(CGRect)rect
-{
+- (void)drawRect:(CGRect)rect{
+    
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
     CGFloat xCenter = rect.size.width * 0.5;

@@ -10,7 +10,7 @@
 
 @interface PhotoBrowserViewController : UIViewController
 
-// 当前展示在中间的cell下标
+// 从第几张图片开始展示，默认0
 @property (nonatomic, assign) NSInteger currentIndex;
 
 // 图片数组

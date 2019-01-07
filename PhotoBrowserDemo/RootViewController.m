@@ -37,7 +37,6 @@
                         @"http://ww4.sinaimg.cn/bmiddle/broswerPic0.jpg",
                         @"http://ww4.sinaimg.cn/bmiddle/broswerPic0.jpg"
                         ];
-//    [self.navigationController pushViewController:_photoVC animated:YES];
     _photoVC.currentIndex = 3;
     [self presentViewController:_photoVC animated:YES completion:nil];
 }

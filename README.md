@@ -5,7 +5,7 @@
 ![上拉加载](https://raw.githubusercontent.com/qianfei1993/PhotoBrowserDemo/master/PhotoBrowserDemo/long.png)
 
 ## 介绍
-#### PhotoBrowserDemo
+#### 使用UICollectionView和SDWebImage实现的图片浏览器，支持长图、动图显示和图片缓存；可保存图片到相册,显示图片加载动画，加载失败可再次加载；
 ## 使用
 #### 
 ```

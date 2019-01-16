@@ -25,15 +25,15 @@
 - (void)photoDemo{
     _photoVC = [[PhotoBrowserViewController alloc]init];
     _photoVC.imgArr = @[
-                        @"http://ww2.sinaimg.cn/bmiddle/9ecab84ejw1emgd5nd6eaj20c80c8q4a.jpg",
-                        @"http://ww2.sinaimg.cn/bmiddle/642beb18gw1ep3629gfm0g206o050b2a.gif",
-                        @"http://ww4.sinaimg.cn/bmiddle/9e9cb0c9jw1ep7nlyu8waj20c80kptae.jpg",
-                        @"http://ww3.sinaimg.cn/bmiddle/8e88b0c1gw1e9lpr1xydcj20gy0o9q6s.jpg",
-                        @"http://ww2.sinaimg.cn/bmiddle/8e88b0c1gw1e9lpr2n1jjj20gy0o9tcc.jpg",
-                        @"http://ww4.sinaimg.cn/bmiddle/8e88b0c1gw1e9lpr4nndfj20gy0o9q6i.jpg",
-                        @"http://ww3.sinaimg.cn/bmiddle/8e88b0c1gw1e9lpr57tn9j20gy0obn0f.jpg",
-                        @"http://ww2.sinaimg.cn/bmiddle/677febf5gw1erma104rhyj20k03dz16y.jpg",
-                        @"http://ww4.sinaimg.cn/bmiddle/677febf5gw1erma1g5xd0j20k0esa7wj.jpg",
+                        @"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=935292084,2640874667&fm=27&gp=0.jpg",
+                        @"http://img3.imgtn.bdimg.com/it/u=3587889913,707866300&fm=214&gp=0.jpg",
+                        @"http://img3.imgtn.bdimg.com/it/u=996902316,576683043&fm=26&gp=0.jpg",
+                        @"http://img4.imgtn.bdimg.com/it/u=4250485907,2796756087&fm=26&gp=0.jpg",
+                        @"http://img3.imgtn.bdimg.com/it/u=3015743357,2053210106&fm=26&gp=0.jpg",
+                        @"http://img5.imgtn.bdimg.com/it/u=1876952812,4049526833&fm=26&gp=0.jpg",
+                        @"http://img18.3lian.com/d/file/201704/13/373a1a79363830685afc44994e7b927d.gif",
+                        @"http://img3.imgtn.bdimg.com/it/u=1355788508,3906310919&fm=26&gp=0.jpg",
+                        @"http://img5.imgtn.bdimg.com/it/u=2564857670,1911784483&fm=26&gp=0.jpg",
                         @"http://ww4.sinaimg.cn/bmiddle/broswerPic0.jpg",
                         @"http://ww4.sinaimg.cn/bmiddle/broswerPic0.jpg"
                         ];

@@ -125,7 +125,7 @@ static CGFloat const kSpacing = 8.0;
 - (void)saveButtonAction{
     NSArray *indexArr = [self.indexLabel.text componentsSeparatedByString:@"/"];
     NSInteger index = [indexArr[0] integerValue];
-    [self saveImage:self.imgArr[index]];
+    [self saveImage:self.imgArr[index-1]];
 }
 - (void)saveImage:(NSString *)urlString {
     
@@ -140,10 +140,19 @@ static CGFloat const kSpacing = 8.0;
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error
   contextInfo:(void *)contextInfo{
     if (error != NULL){
-        //[self showHudString:@"图片保存失败"];
+        [self alertViewWithMSG:@"图片保存失败!"];
     }else{
-        //[self showHudString:@"图片保存成功"];
+        [self alertViewWithMSG:@"图片保存成功!"];
     }
+}
+
+
+- (void)alertViewWithMSG:(NSString*)msg{
+    
+    UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"提示" message:msg preferredStyle:UIAlertControllerStyleAlert];
+    [alertCtrl addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    [self presentViewController:alertCtrl animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

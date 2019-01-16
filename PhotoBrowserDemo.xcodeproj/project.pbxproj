@@ -43,6 +43,8 @@
 		B3201A8521BFB2710035E846 /* PhotoBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3201A8021BFB2710035E846 /* PhotoBrowserViewController.m */; };
 		B3201A8621BFB2710035E846 /* PhotoBrowserWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3201A8221BFB2710035E846 /* PhotoBrowserWaitingView.m */; };
 		B3201A8721BFB2710035E846 /* PhotoBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3201A8321BFB2710035E846 /* PhotoBrowserCell.m */; };
+		B320905F21EED98A0067F162 /* gif.png in Resources */ = {isa = PBXBuildFile; fileRef = B320905D21EED9890067F162 /* gif.png */; };
+		B320906021EED98A0067F162 /* long.png in Resources */ = {isa = PBXBuildFile; fileRef = B320905E21EED98A0067F162 /* long.png */; };
 		B32A4AF2218ACC3C00B72F8E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B32A4AF1218ACC3C00B72F8E /* AppDelegate.m */; };
 		B32A4AF8218ACC3C00B72F8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B32A4AF6218ACC3C00B72F8E /* Main.storyboard */; };
 		B32A4AFA218ACC4A00B72F8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B32A4AF9218ACC4A00B72F8E /* Assets.xcassets */; };
@@ -145,6 +147,8 @@
 		B3201A8121BFB2710035E846 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		B3201A8221BFB2710035E846 /* PhotoBrowserWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoBrowserWaitingView.m; sourceTree = "<group>"; };
 		B3201A8321BFB2710035E846 /* PhotoBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoBrowserCell.m; sourceTree = "<group>"; };
+		B320905D21EED9890067F162 /* gif.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif.png; sourceTree = "<group>"; };
+		B320905E21EED98A0067F162 /* long.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = long.png; sourceTree = "<group>"; };
 		B32A4AED218ACC3B00B72F8E /* PhotoBrowserDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoBrowserDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B32A4AF0218ACC3C00B72F8E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B32A4AF1218ACC3C00B72F8E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -321,6 +325,8 @@
 				B32A4AF1218ACC3C00B72F8E /* AppDelegate.m */,
 				B3E3559B218AE8B900917197 /* RootViewController.h */,
 				B3E3559C218AE8B900917197 /* RootViewController.m */,
+				B320905D21EED9890067F162 /* gif.png */,
+				B320905E21EED98A0067F162 /* long.png */,
 				B3E3559D218AE8B900917197 /* RootViewController.xib */,
 				B32A4AF6218ACC3C00B72F8E /* Main.storyboard */,
 				B32A4AF9218ACC4A00B72F8E /* Assets.xcassets */,
@@ -454,8 +460,10 @@
 			files = (
 				B32A4AFD218ACC4A00B72F8E /* LaunchScreen.storyboard in Resources */,
 				B3E3559F218AE8B900917197 /* RootViewController.xib in Resources */,
+				B320905F21EED98A0067F162 /* gif.png in Resources */,
 				B32A4AFA218ACC4A00B72F8E /* Assets.xcassets in Resources */,
 				B32A4AF8218ACC3C00B72F8E /* Main.storyboard in Resources */,
+				B320906021EED98A0067F162 /* long.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

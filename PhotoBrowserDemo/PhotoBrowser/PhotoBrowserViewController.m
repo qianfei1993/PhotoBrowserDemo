@@ -42,6 +42,7 @@ static CGFloat const kSpacing = 8.0;
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.indexLabel];
     [self.view addSubview:self.saveButton];
+    _currentIndex = _currentIndex ? _currentIndex : 1;
     if (_currentIndex < self.imgArr.count) {
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_currentIndex-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
         self.indexLabel.text = [NSString stringWithFormat:@"%li/%lu",(long)_currentIndex,(unsigned long)_imgArr.count];

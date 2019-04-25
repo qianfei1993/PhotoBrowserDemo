@@ -48,6 +48,7 @@
 		B322BE4E22715C65001AB450 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = B322BE4B22715C64001AB450 /* loading.png */; };
 		B322BE4F22715C65001AB450 /* short.png in Resources */ = {isa = PBXBuildFile; fileRef = B322BE4C22715C64001AB450 /* short.png */; };
 		B322BE5022715C65001AB450 /* reload.png in Resources */ = {isa = PBXBuildFile; fileRef = B322BE4D22715C64001AB450 /* reload.png */; };
+		B322BE5222717A25001AB450 /* gwh.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B322BE5122717A25001AB450 /* gwh.jpg */; };
 		B32A4AF2218ACC3C00B72F8E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B32A4AF1218ACC3C00B72F8E /* AppDelegate.m */; };
 		B32A4AF8218ACC3C00B72F8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B32A4AF6218ACC3C00B72F8E /* Main.storyboard */; };
 		B32A4AFA218ACC4A00B72F8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B32A4AF9218ACC4A00B72F8E /* Assets.xcassets */; };
@@ -155,6 +156,7 @@
 		B322BE4B22715C64001AB450 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		B322BE4C22715C64001AB450 /* short.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = short.png; sourceTree = "<group>"; };
 		B322BE4D22715C64001AB450 /* reload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reload.png; sourceTree = "<group>"; };
+		B322BE5122717A25001AB450 /* gwh.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gwh.jpg; sourceTree = "<group>"; };
 		B32A4AED218ACC3B00B72F8E /* PhotoBrowserDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoBrowserDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B32A4AF0218ACC3C00B72F8E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B32A4AF1218ACC3C00B72F8E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 				B32A4AF1218ACC3C00B72F8E /* AppDelegate.m */,
 				B3E3559B218AE8B900917197 /* RootViewController.h */,
 				B3E3559C218AE8B900917197 /* RootViewController.m */,
+				B322BE5122717A25001AB450 /* gwh.jpg */,
 				B320906321EF011A0067F162 /* gif.png */,
 				B320906121EF006E0067F162 /* long.png */,
 				B322BE4D22715C64001AB450 /* reload.png */,
@@ -468,6 +471,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B322BE5022715C65001AB450 /* reload.png in Resources */,
+				B322BE5222717A25001AB450 /* gwh.jpg in Resources */,
 				B32A4AFD218ACC4A00B72F8E /* LaunchScreen.storyboard in Resources */,
 				B3E3559F218AE8B900917197 /* RootViewController.xib in Resources */,
 				B32A4AFA218ACC4A00B72F8E /* Assets.xcassets in Resources */,

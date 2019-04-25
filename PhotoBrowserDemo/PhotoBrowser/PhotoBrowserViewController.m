@@ -10,6 +10,7 @@
 #import "PhotoBrowserCell.h"
 #define SCREEN_WIDTH        [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT       [UIScreen mainScreen].bounds.size.height
+#define kISNullString(str) ([str isKindOfClass:[NSNull class]] || str == nil || [str length] < 1 ? YES : NO )
 static CGFloat const kSpacing = 8.0;
 @interface PhotoBrowserViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate>
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -143,12 +144,17 @@ static CGFloat const kSpacing = 8.0;
 }
 - (void)saveImage:(NSString *)urlString {
     
-    NSURL *url = [NSURL URLWithString: urlString];
-    //从网络下载图片
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    UIImage *image = [UIImage imageWithData:data];
-    // 保存图片到相册中
-    UIImageWriteToSavedPhotosAlbum(image,self, @selector(image:didFinishSavingWithError:contextInfo:),nil);
+    if (!kISNullString(urlString) && [urlString hasPrefix:@"http"]) {
+        
+        NSURL *url = [NSURL URLWithString: urlString];
+        //从网络下载图片
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        UIImage *image = [UIImage imageWithData:data];
+        // 保存图片到相册中
+        UIImageWriteToSavedPhotosAlbum(image,self, @selector(image:didFinishSavingWithError:contextInfo:),nil);
+    }else{
+        [self alertViewWithMSG:@"图片不支持保存到相册！"];
+    }
 }
 //保存图片完成之后的回调
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error

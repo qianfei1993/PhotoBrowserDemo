@@ -10,7 +10,7 @@
 ## 介绍&使用
 #### 使用UICollectionView封装的图片浏览器，依赖于SDWebImage；支持网络图片、本地图片和二进制图片加载，支持长图，动图显示；支持双击缩放，捏合缩放，单击消失；支持图片加载动画，图片加载失败重加载，图片缓存，保存网络图片到相册等功能；
 ## 使用
-#### 初始化PhotoBrowserViewController，传入需要显示的图片数组即可；currentIndex表示重第几张开始显示(默认重第一张开始显示)
+#### 初始化PhotoBrowserViewController，传入需要显示的图片数组，可同时包含网络图片与本地图片；currentIndex表示从第几张开始显示(默认从第一张开始显示)
 ```
     _photoVC = [[PhotoBrowserViewController alloc]init];
     // 传入图片数组，可同时包含网络图片与本地图片

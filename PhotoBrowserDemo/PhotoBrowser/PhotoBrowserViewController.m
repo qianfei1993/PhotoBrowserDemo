@@ -19,11 +19,17 @@ static CGFloat const kSpacing = 8.0;
 @end
 
 @implementation PhotoBrowserViewController
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+}
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    
+    return UIStatusBarStyleDefault;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupViews];
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
 }
 
 - (void)setupViews {
@@ -33,16 +39,18 @@ static CGFloat const kSpacing = 8.0;
     } else {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    _currentIndex = 0;
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.indexLabel];
     [self.view addSubview:self.saveButton];
-    self.indexLabel.text = [NSString stringWithFormat:@"1/%lu",(unsigned long)_imgArr.count];
+    if (_currentIndex < self.imgArr.count) {
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_currentIndex-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+        self.indexLabel.text = [NSString stringWithFormat:@"%li/%lu",(long)_currentIndex,(unsigned long)_imgArr.count];
+    }
 }
 - (void)setCurrentIndex:(NSInteger)currentIndex{
     _currentIndex = currentIndex;
-    if (currentIndex > self.imgArr.count) {
-        return;
+    if (currentIndex > self.imgArr.count || currentIndex < 1) {
+        _currentIndex = 1;
     }
 }
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -52,8 +60,9 @@ static CGFloat const kSpacing = 8.0;
     return self.imgArr.count;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     PhotoBrowserCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoBrowserCellID" forIndexPath:indexPath];
-    cell.imgUrl = self.imgArr[indexPath.item];
+    [cell loadImageWithImgArr:self.imgArr withIndexPath:indexPath];
     cell.dismissBlock = ^{
         [self dismissViewControllerAnimated:YES completion:nil];
     };
@@ -62,6 +71,7 @@ static CGFloat const kSpacing = 8.0;
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(PhotoBrowserCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
     [cell.scrollView setZoomScale:1.0 animated:NO];
 }
+
 #pragma mark - getter
 - (UICollectionViewFlowLayout *)flowLayout {
     if (!_flowLayout) {
@@ -102,6 +112,7 @@ static CGFloat const kSpacing = 8.0;
     }
     return _indexLabel;
 }
+
 - (UIButton *)saveButton{
     if (!_saveButton) {
         _saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -116,12 +127,14 @@ static CGFloat const kSpacing = 8.0;
     }
     return _saveButton;
 }
+
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
     NSInteger index = (scrollView.contentOffset.x + (SCREEN_WIDTH + kSpacing*2)/2) / (SCREEN_WIDTH + kSpacing*2);
     self.indexLabel.text = [NSString stringWithFormat:@"%ld/%lu",(long)index+1,(unsigned long)_imgArr.count];
 }
+
 - (void)saveButtonAction{
     NSArray *indexArr = [self.indexLabel.text componentsSeparatedByString:@"/"];
     NSInteger index = [indexArr[0] integerValue];
@@ -145,7 +158,6 @@ static CGFloat const kSpacing = 8.0;
         [self alertViewWithMSG:@"图片保存成功!"];
     }
 }
-
 
 - (void)alertViewWithMSG:(NSString*)msg{
     

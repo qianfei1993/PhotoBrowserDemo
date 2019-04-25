@@ -12,7 +12,7 @@
 #define kMaxZoomScale 2.0f
 @interface PhotoBrowserCell : UICollectionViewCell
 
-@property (nonatomic, copy) NSString *imgUrl;
+- (void)loadImageWithImgArr:(NSArray *)imgArr withIndexPath:(NSIndexPath *)indexPath;
 @property (nonatomic, copy) void (^dismissBlock)(void);
 @property (nonatomic, strong) UIScrollView *scrollView;
 @end

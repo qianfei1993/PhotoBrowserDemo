@@ -16,7 +16,6 @@
     if (self) {
         self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
         self.clipsToBounds = YES;
-        self.mode = WaitingViewStyleLoopDiagram;
     }
     return self;
 }
@@ -42,46 +41,17 @@
 - (void)drawRect:(CGRect)rect{
     
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    
     CGFloat xCenter = rect.size.width * 0.5;
     CGFloat yCenter = rect.size.height * 0.5;
     [[UIColor whiteColor] set];
     
-    switch (self.mode) {
-        case WaitingViewStylePieDiagram:
-            {
-                CGFloat radius = MIN(rect.size.width * 0.5, rect.size.height * 0.5) - WaitingViewItemMargin;
-                
-                
-                CGFloat w = radius * 2 + WaitingViewItemMargin;
-                CGFloat h = w;
-                CGFloat x = (rect.size.width - w) * 0.5;
-                CGFloat y = (rect.size.height - h) * 0.5;
-                CGContextAddEllipseInRect(ctx, CGRectMake(x, y, w, h));
-                CGContextFillPath(ctx);
-                
-                [[UIColor colorWithRed:0 green:0 blue:0 alpha:0.7] set];
-                CGContextMoveToPoint(ctx, xCenter, yCenter);
-                CGContextAddLineToPoint(ctx, xCenter, 0);
-                CGFloat to = - M_PI * 0.5 + self.progress * M_PI * 2 + 0.001; // 初始值
-                CGContextAddArc(ctx, xCenter, yCenter, radius, - M_PI * 0.5, to, 1);
-                CGContextClosePath(ctx);
-                
-                CGContextFillPath(ctx);
-            }
-            break;
-            
-        default:
-            {
-                CGContextSetLineWidth(ctx, 4);
-                CGContextSetLineCap(ctx, kCGLineCapRound);
-                CGFloat to = - M_PI * 0.5 + self.progress * M_PI * 2 + 0.05; // 初始值0.05
-                CGFloat radius = MIN(rect.size.width, rect.size.height) * 0.5 - WaitingViewItemMargin;
-                CGContextAddArc(ctx, xCenter, yCenter, radius, - M_PI * 0.5, to, 0);
-                CGContextStrokePath(ctx);
-            }
-            break;
-    }
+    CGContextSetLineWidth(ctx, 4);
+    CGContextSetLineCap(ctx, kCGLineCapRound);
+    CGFloat to = - M_PI * 0.5 + self.progress * M_PI * 2 + 0.05; // 初始值0.05
+    CGFloat radius = MIN(rect.size.width, rect.size.height) * 0.5 - WaitingViewItemMargin;
+    CGContextAddArc(ctx, xCenter, yCenter, radius, - M_PI * 0.5, to, 0);
+    CGContextStrokePath(ctx);
+    
 }
 
 @end

@@ -17,6 +17,7 @@
 @property (nonatomic,strong) FLAnimatedImageView *imageView;
 @property (nonatomic, strong) UIButton *reloadButton;
 @property (nonatomic,strong) PhotoBrowserWaitingView *waitingView;
+@property (nonatomic, copy) NSString *imgUrl; /** <#注释#> */
 @end
 
 @implementation PhotoBrowserCell
@@ -26,10 +27,11 @@
     [super awakeFromNib];
     
 }
+
 - (void)prepareForReuse{
     [super prepareForReuse];
-    
 }
+
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -51,12 +53,16 @@
     [singleTap requireGestureRecognizerToFail:doubleTap];
     [self.scrollView addGestureRecognizer:singleTap];
     [self.scrollView addGestureRecognizer:doubleTap];
+    
+    self.waitingView = [[PhotoBrowserWaitingView alloc] init];
+    self.waitingView.center = CGPointMake(self.bounds.size.width * 0.5, self.bounds.size.height * 0.5);
 }
 
+// 单击手势
 - (void)singleTap:(UITapGestureRecognizer *)singleTap {
     self.dismissBlock ? self.dismissBlock() : nil;
 }
-
+// 双击手势，放大或者缩小图片
 - (void)doubleTap:(UITapGestureRecognizer *)doubleTap {
     if (self.scrollView.zoomScale > 1) {
         [self.scrollView setZoomScale:1 animated:YES];
@@ -69,6 +75,7 @@
     }
 }
 
+// 图片布局
 - (void)resizesSubViews {
     
     UIImage *image = self.imageView.image;
@@ -94,6 +101,7 @@
     } else {
         _scrollView.alwaysBounceVertical = YES;
     }
+    [self layoutSubviews];
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
@@ -104,35 +112,62 @@
     self.imageView.transform = CGAffineTransformScale(self.imageView.transform, pinch.scale, pinch.scale);
     pinch.scale = 1;
 }
-- (void)loadImageUrl:(NSString *)url{
+
+// 加载图片
+- (void)loadImageWithImgArr:(NSArray *)imgArr withIndexPath:(NSIndexPath *)indexPath{
+    
     if (_reloadButton) {
         [_reloadButton removeFromSuperview];
     }
     //添加进度指示器
-    self.waitingView = [[PhotoBrowserWaitingView alloc] init];
-    self.waitingView.mode = WaitingViewStyleLoopDiagram;
-    self.waitingView.center = CGPointMake(self.bounds.size.width * 0.5, self.bounds.size.height * 0.5);
     [self.contentView addSubview:self.waitingView];
     self.scrollView.maximumZoomScale = 1;
     __weak __typeof(self)weakSelf = self;
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
-        //NSLog(@"receivedSize = %ld \n expectedSize = %ld",receivedSize,expectedSize);
-        //在主线程做UI更新
-        __strong __typeof(weakSelf)strongSelf = weakSelf;
-        dispatch_async(dispatch_get_main_queue(), ^{
-           strongSelf.waitingView.progress = (CGFloat)receivedSize / expectedSize;
-        });
-    } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        [self.waitingView removeFromSuperview];
-        if (!error) {
-            self.scrollView.maximumZoomScale = 3;
+    if ([imgArr[indexPath.item] isKindOfClass:[NSString class]]) {
+        
+        if ([imgArr[indexPath.item] hasPrefix:@"http"]) {
+            // 加载网络图片
+            self.imgUrl = [NSString stringWithFormat:@"%@",imgArr[indexPath.item]];
+            [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.imgUrl] placeholderImage:nil options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+                //在主线程做UI更新
+                __strong __typeof(weakSelf)strongSelf = weakSelf;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.waitingView.progress = (CGFloat)receivedSize / expectedSize;
+                });
+            } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                [self.waitingView removeFromSuperview];
+                if (!error) {
+                    self.scrollView.maximumZoomScale = 3;
+                    [self resizesSubViews];
+                }else{
+                    [self.contentView addSubview:self.reloadButton];
+                }
+            }];
+        }else{
+            // 加载本地图片
+            self.imageView.image = [UIImage imageNamed:imgArr[indexPath.item]];
+            [self resizesSubViews];
+            [self.waitingView removeFromSuperview];
+        }
+    }else if([imgArr[indexPath.item] isKindOfClass:[NSData class]]){
+        if ([self isImageData:imgArr[indexPath.item]]) {
+            // 加载二进制图片
+            self.imageView.image = imgArr[indexPath.row];
             [self resizesSubViews];
         }else{
+            // 资源出错
             [self.contentView addSubview:self.reloadButton];
         }
-    }];
+        [self.waitingView removeFromSuperview];
+    }else{
+        // 资源出错
+        [self.contentView addSubview:self.reloadButton];
+        [self.waitingView removeFromSuperview];
+    }
     [self resizesSubViews];
 }
+
+
 #pragma mark - getter & setter
 - (UIScrollView *)scrollView {
     if (!_scrollView) {
@@ -163,21 +198,35 @@
     }
     return _reloadButton;
 }
-- (PhotoBrowserWaitingView *)waitingView{
-    if (!_waitingView) {
-        PhotoBrowserWaitingView *waitingView = [[PhotoBrowserWaitingView alloc] init];
-        waitingView.mode = WaitingViewStyleLoopDiagram;
-        waitingView.center = CGPointMake(self.bounds.size.width * 0.5, self.bounds.size.height * 0.5);
-    }
-    return _waitingView;
-}
-- (void)setImgUrl:(NSString *)imgUrl{
-    _imgUrl = imgUrl;
-    [self loadImageUrl:imgUrl];
-}
+
+// 图片加载失败，重新加载
 - (void)reloadImage{
-    [self loadImageUrl:self.imgUrl];
+   
+    if (_reloadButton) {
+        [_reloadButton removeFromSuperview];
+    }
+    //添加进度指示器
+    [self.contentView addSubview:self.waitingView];
+    self.scrollView.maximumZoomScale = 1;
+    __weak __typeof(self)weakSelf = self;
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.imgUrl] placeholderImage:nil options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+        //在主线程做UI更新
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            strongSelf.waitingView.progress = (CGFloat)receivedSize / expectedSize;
+        });
+    } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        [self.waitingView removeFromSuperview];
+        if (!error) {
+            self.scrollView.maximumZoomScale = 3;
+            [self resizesSubViews];
+        }else{
+            [self.contentView addSubview:self.reloadButton];
+        }
+    }];
+    [self resizesSubViews];
 }
+
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
     
@@ -185,13 +234,39 @@
     (scrollView.bounds.size.width - scrollView.contentSize.width) * 0.5 : 0.0;
     CGFloat offsetY = (scrollView.bounds.size.height > scrollView.contentSize.height)?
     (scrollView.bounds.size.height - scrollView.contentSize.height) * 0.5 : 0.0;
-    self.imageView.center = CGPointMake(scrollView.contentSize.width * 0.5 + offsetX,
-                                        scrollView.contentSize.height * 0.5 + offsetY);
+    self.imageView.center = CGPointMake(scrollView.contentSize.width * 0.5 + offsetX,scrollView.contentSize.height * 0.5 + offsetY);
 }
 
-#pragma mark - NLBottomToolbarDelegate
-- (void)toolbarDidClickLikeButton {
+
+- (BOOL)isImageData:(nullable NSData *)data {
+    if (!data) {
+        return NO;
+    }
+    uint8_t c;
+    [data getBytes:&c length:1];
+    if (c == 0xFF || c == 0x89 || c == 0x47 || c == 0x49 || c == 0x4D) {
+        return YES;
+    }
     
+    if (c == 0x52 && data.length >= 12) {
+        //RIFF....WEBP
+        NSString *testString = [[NSString alloc] initWithData:[data subdataWithRange:NSMakeRange(0, 12)] encoding:NSASCIIStringEncoding];
+        if ([testString hasPrefix:@"RIFF"] && [testString hasSuffix:@"WEBP"]) {
+            return YES;
+        }
+    }
+    
+    if (c == 0x00 && data.length >= 12) {
+        //....ftypheic ....ftypheix ....ftyphevc ....ftyphevx
+        NSString *testString = [[NSString alloc] initWithData:[data subdataWithRange:NSMakeRange(4, 8)] encoding:NSASCIIStringEncoding];
+        if ([testString isEqualToString:@"ftypheic"]
+            || [testString isEqualToString:@"ftypheix"]
+            || [testString isEqualToString:@"ftyphevc"]
+            || [testString isEqualToString:@"ftyphevx"]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end

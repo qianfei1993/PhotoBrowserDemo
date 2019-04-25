@@ -1,13 +1,16 @@
 # PhotoBrowserDemo
 ## 效果图
 #### 动态图&长图
-![下拉刷新](https://raw.githubusercontent.com/qianfei1993/PhotoBrowserDemo/master/PhotoBrowserDemo/gif.png)
-![上拉加载](https://raw.githubusercontent.com/qianfei1993/PhotoBrowserDemo/master/PhotoBrowserDemo/long.png)
+![动图](https://raw.githubusercontent.com/qianfei1993/PhotoBrowserDemo/master/PhotoBrowserDemo/gif.png)
+![长图](https://raw.githubusercontent.com/qianfei1993/PhotoBrowserDemo/master/PhotoBrowserDemo/long.png)
+![短图](https://raw.githubusercontent.com/qianfei1993/PhotoBrowserDemo/master/PhotoBrowserDemo/short.png)
+![图片加载动画](https://raw.githubusercontent.com/qianfei1993/PhotoBrowserDemo/master/PhotoBrowserDemo/loading.png)
+![图片加载失败](https://raw.githubusercontent.com/qianfei1993/PhotoBrowserDemo/master/PhotoBrowserDemo/reload.png)
 
-## 介绍
-#### 使用UICollectionView和SDWebImage实现的图片浏览器，支持长图、动图显示和图片缓存；可保存图片到相册,显示图片加载动画，加载失败可再次加载；
+## 介绍&使用
+#### 使用UICollectionView封装的图片浏览器，支持网络图片、本地图片和二进制图片显示，支持长图，动图显示，支持图片加载动画，图片加载失败重加载，图片缓存，支持保存图片到相册；依赖于SDWebImage；
 ## 使用
-#### 
+#### 初始化PhotoBrowserViewController，传入需要显示的图片数组即可；currentIndex表示重第几张开始显示
 ```
     _photoVC = [[PhotoBrowserViewController alloc]init];
     _photoVC.imgArr = @[

@@ -13,6 +13,7 @@
 #### 初始化PhotoBrowserViewController，传入需要显示的图片数组即可；currentIndex表示重第几张开始显示(默认重第一张开始显示)
 ```
     _photoVC = [[PhotoBrowserViewController alloc]init];
+    // 传入图片数组，可同时包含网络图片与本地图片
     _photoVC.imgArr = @[
                         @"http://img5.imgtn.bdimg.com/it/u=1876952812,4049526833&fm=26&gp=0.jpg",
                         @"http://img18.3lian.com/d/file/201704/13/373a1a79363830685afc44994e7b927d.gif",
